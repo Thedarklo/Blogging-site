@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Search Results</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <head>
+    <body class="bg-dark " style="color: white;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Greetings {{ users["fname"] }},</a>
+                    </li>
+                </ul>
+                <div class="d-flex" role="search">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item pr-5">
+                            <a class="nav-link" href="/{{ users["username"] }}/my_profile" formaction='/{{ users["username"] }}/my_profile' formmethod='GET'>MY PROFILE</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="/{{ users["username"] }}/search" formaction='/{{ users["username"] }}/search' formmethod='GET'>SEARCH</a> 
+                        </li>
+                        <li class="nav-item pr-5">
+                            <a class="nav-link" href='/' formaction='/' formmethod='GET'>Sign OUT</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </nav>
+        <br>
+        <div class="container">
+            {% for item in results %}
+            <div class="card w-75 mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"> <a href="/{{ users["username"] }}/profile/{{ item }}" formaction="/{{ users["username"] }}/profile/{{ item }}" formmethod="GET"><b style="float:left; margin-top: 14px; margin-right: 5px;">{{ users["fname"] }} {{ users["lname"] }} </b></a></h5>
+                    {% if item  not in follow %}
+                        <a href="/{{ users["username"] }}/follow/{{ item }}" class="btn btn-primary" formaction="/{{ users["username"] }}/follow/{{ item }}" formmethod='GET'>Follow</a></b>
+                    {% else %}
+                        <a href="/{{ users["username"] }}/unfollow/{{ item }}" class="btn btn-primary" formaction="/{{ users["username"] }}/unfollow/{{ item }}" formmethod='GET'>Unfollow</a></b>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>
